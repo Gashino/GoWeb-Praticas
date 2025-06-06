@@ -3,5 +3,13 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("d")
+	productsInMemory, err := LoadData()
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(productsInMemory)
+
 }
