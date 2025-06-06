@@ -19,7 +19,7 @@ type Product struct {
 func LoadData() ([]Product, error) {
 	var products []Product
 
-	file, err := os.ReadFile("/Users/agaggino/Documents/Bootcamp/GoWeb/products.json")
+	file, err := os.ReadFile("products.json")
 
 	if err != nil {
 		return nil, errors.New("error: an error occurred with the file...")
