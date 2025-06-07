@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/go-chi/chi/v5"
 	"local/go-web/supermarket/internal/domain/entities"
+	"local/go-web/supermarket/internal/domain/validators"
 	"local/go-web/supermarket/internal/services"
 	"net/http"
 	"strconv"
@@ -32,11 +33,22 @@ func publishProducts(r chi.Router, url string) {
 
 		if err != nil {
 			http.Error(writer, err.Error(), http.StatusBadRequest)
+			return
 		}
 
-		status, err := service.PostProduct(&services.Data, newProduct)
+		validationErr := validators.ValidateProduct(services.Data, newProduct)
 
-		fmt.Println(status)
+		if validationErr != nil {
+			http.Error(writer, validationErr.Error(), http.StatusBadRequest)
+			return
+		}
+
+		status, _ := service.PostProduct(&services.Data, newProduct)
+
+		if !status {
+			http.Error(writer, "undefined error", http.StatusInternalServerError)
+			return
+		}
 
 		writer.WriteHeader(http.StatusCreated)
 	})

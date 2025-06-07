@@ -10,8 +10,8 @@ type ProductService struct {
 }
 
 func (p ProductService) PostProduct(d *[]entities.Product, pp entities.Product) (bool, error) {
-	pp.Id = 123123
-
+	idToGive := (*d)[len(*d)-1].Id
+	pp.Id = idToGive + 1
 	*d = append(*d, pp)
 	return true, nil
 }
