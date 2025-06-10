@@ -1,4 +1,4 @@
-package controllers
+package application
 
 import (
 	"github.com/go-chi/chi/v5"
@@ -9,7 +9,7 @@ import (
 func StartRouter() {
 	var router = chi.NewRouter()
 
-	//Here starts the controllers
+	//Here starts the application
 	AttachProductsController(router)
 
 	//Start listening
